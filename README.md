@@ -1,88 +1,62 @@
-# mhat-common-boilerplate-repo
+# Readme Boilerplate
 
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/alantsai/mhat-common-boilerplate-repo?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
+[![GitHub version](https://img.shields.io/badge/version-v1.0.0-blue.svg)](https://github.com/yilber/readme-boilerplate)
+[![License](https://img.shields.io/github/license/yilber/readme-boilerplate.svg)](https://github.com/Yilber/readme-boilerplate/blob/master/LICENSE)
+[![Backers on Patreon](https://img.shields.io/badge/backer-Patreon-orange.svg)](https://www.patreon.com/yilber)
+[![Backers on Paypal](https://img.shields.io/badge/backer-Paypal-blue.svg)](https://www.paypal.me/Yilber)
 
-這個專案的目的是提供一個template，方便建立新專案的時候，包含需要的最基本資訊。
+Boilerplate for creating github compatible readme files
 
-每一個資料夾或者檔案的作用詳細說明可以參考我的部落格[該怎麼開專案的資料夾結構？每個專案應該要有的資料夾結構和檔案](http://to.alantsai.net/20170723-blog-github)
+## Background
 
-在使用的時候，quote (>作為開頭的文字)都可以刪掉，那些是說明用途。
+> Creating a good README.md takes forever, especially if you are starting off from scratch. So, I decided to make a few templates to help me speed up things a little bit. The readme-template.md file is a template containing a group of sections that you might want to include on your readme file.
 
-> 這個部分的內容主要簡短介紹這個專案的目的。有些時候會在這個部分放上一些標章（例如建制情況等）和專案的logo。
+## Installation
 
-## 安裝 (install)
+Open your terminal and type in
 
-這個專案並無安裝的前置條件
-
-> 這個部分寫的是開始使用的前置條件 - 例如用`npm`或者`nuget`安裝的指令。
-
-## 快速使用 (getting started)
-
-使用這個專案有兩種模式：  
-1. 不包含這個專案的歷史記錄
-2. 包含這個專案的歷史記錄
-
-### 不包含這個專案的歷史記錄
-
-可以直接下載最新版本的zip檔案：
-
-[下載最新的zip](https://github.com/alantsai/mhat-common-boilerplate-repo/archive/master.zip)
-
-或者可以 ：
-
-1. clone專案
-2. 刪除.git資料夾
-3. 重新git init（新的版控記錄）
-
-Powershell指令來說就是：
-
-```powershell
-git clone https://github.com/alantsai/mhat-common-boilerplate-repo.git
-cd mhat-common-boilerplate-repo
-rm .git -Recurse -Force
-git init
-git add -A
-git commit -m "init project"
+```sh
+$ git clone https://github.com/Yilber/readme-boilerplate.git
+$ cd readme-boilerplate
 ```
 
-### 包含這個專案的歷史記錄
+## Scaffolding
 
-操作步驟
-
-1. clone專案
-2. 刪掉origin的位置
-3. 調整origin到新的位置
-
-```powershell
-git clone https://github.com/alantsai/mhat-common-boilerplate-repo.git
-cd mhat-common-boilerplate-repo
-git remote rm origin
-git remote add origin {new repo url}
+```text
+readme-boilerplate
+├── src
+│   └── templates
+│       ├── header-advanced.md
+│       ├── header-simple.md
+│       └── readme-template.md
+├── LICENSE
+└── README.md
 ```
 
-> 這個部分告訴大家如何開始使用你的這個專案。一般來說提供一個hello world範例之後，會提供鏈接到詳細的doc說明。
+## How to use
 
-## 幫助 (support)
+* Create a README.md file.
+* Pick a header from the templates folder and copy its content onto the README.md file.
+* Update the URLs and add/remove any necessary badge.
+* Copy and paste the content from the readme-template.md onto the README.md file.
+* Add/remove necessary sections and update all URLs.
 
-如果有任何問題，可以透過[開issue](https://github.com/alantsai/mhat-common-boilerplate-repo/issues/new) 或者 可以在 [gitter](https://gitter.im/alantsai/mhat-common-boilerplate-repo?utm_source=share-link&utm_medium=link&utm_campaign=share-link)上面發問。
+## Bugs
 
-## 參與修改 (Contributing)
+If you have questions, feature requests or a bug you want to report, please click [here](https://github.com/Yilber/readme-boilerplate/issues) to file an issue.
 
-歡迎任何形式的參與，更多資訊請參考  
-[CONTRIBUTING.md](CONTRIBUTING.md)
+## Author
 
-## 貢獻者 (Contributors)
+* [**Yilber Mejia**](https://www.yilbermejia.com/) [![GitHub followers](https://img.shields.io/github/followers/yilber.svg?style=social)](https://github.com/yilber) [![Twitter Follow](https://img.shields.io/twitter/follow/Yilber_M.svg?style=social)](https://twitter.com/Yilber_M)
 
-> 如果有任何要感謝的貢獻者，可以專門寫到 `CONTRIBUTORS.md` 檔案，或者直接在這個檔案裡面列出來。
+## Support
 
-## 作者 (Authors)
+Like what you see? Keep me awake at night by buying me a coffee or two.
 
-> 假設需要列出專案的作者（和版權有關），那麼可以列在 `AUTHORS.md` 裡面。
+<a href="https://www.buymeacoffee.com/yilber" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;"></a>
+<a href="https://www.patreon.com/bePatron?u=17267732" target="_blank"><img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" height="37" alt="Become a patreon" style="height: auto !important;width: auto !important;"></a>
+## License
 
-## 感謝 (Acknowledgements)
+Copyright (c) 2019 Yilber Mejia.
 
-> 如果專案有使用到一些第三方的library或者一些資源想要感謝可以寫在這裡，或者如果內容比較多可以列在 `ACKNOWLEDGMENTS.md` 裡面。
-
-## 授權 (License)
-
-本專案屬於 MIT License，更多資訊請看 [LICENSE.md](LICENSE.md)
+Usage is provided under the MIT License. See [LICENSE](https://github.com/Yilber/readme-boilerplate/blob/master/LICENSE) for the full details.

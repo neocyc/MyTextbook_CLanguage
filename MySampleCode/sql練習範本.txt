@@ -1,0 +1,128 @@
+慣用:表單互相對照就用JOIN語法，條件限定用WHERE語法。保留舊資料用LEFT JOIN，不保留資料用INNER JOIN
+
+欄位的方式"無法"確保當對應到空值的時候資料不會有誤
+ISNULL的方式"可以"確保當對應到空值的時候資料不會有誤，因為會自動用空白或字串代替。
+
+時間的NULL值可以指定'1900/01/01'替代NULL，方便事後資料的運算
+
+select continent,COUNT(continent) as rlt from dbo.World group by continent
+select continent,SUM(area) as total_area from dbo.World group by continent
+select continent,SUM(area) as total_area from dbo.World group by continent having SUM(area)<>652230 
+select * from dbo.World order by 3
+select * from dbo.World order by area
+
+select * from dbo.Department
+select * from dbo.Employee
+select * from dbo.Department,dbo.Employee
+select * from dbo.Department as a,dbo.Employee as b where a.ID=b.DepartmentId 
+select * from dbo.Department as a,dbo.Employee as b where a.ID=b.ID 
+select * from dbo.Department as a right join dbo.Employee as b on a.ID=b.ID
+
+select * from dbo.World where area=(select max(area) from dbo.World as bar)
+select (select max(area) from dbo.World as bar) as max_area, (select min(area) from dbo.World as bar) as min_area
+
+select area from dbo.World 
+select *,ISNULL((select area from dbo.World where name='Albania'),0) as newarea from dbo.World
+select * from (select name,area from dbo.World) as bar
+
+select * from dbo.World
+
+/*
+WITH S1 AS (select * from dbo.Department),
+     S2 AS (select * from dbo.Employee),
+     S3 AS (select * from dbo.salary)	
+SELECT *,S1.Id,S2.Salary,S3.sex
+from S2 left join S1 on(S2.Id=S1.Id) inner join S3 on (S2.Id=S3.id)
+where 1=1 
+*/
+
+/*
+select name,area into ap from dbo.World
+select * from dbo.ap
+alter table dbo.ap add c integer
+select * from dbo.ap
+alter table dbo.ap drop column name
+select * from dbo.ap
+
+drop table dbo.ap
+alter table dbo.Department drop constraint pkey
+alter table dbo.Department add constraint pkey primary key(Id) 
+alter table dbo.Department drop constraint pkey
+*/
+/* 從World建立ap(欄位:name,area)，刪除清空ap資料表裡的內容，從World插入一筆資料到ap
+select name,area into ap from dbo.World
+select * from dbo.ap
+delete from dbo.ap
+truncate table dbo.ap
+select * from dbo.ap
+insert into dbo.ap(name,area) select name,area from dbo.World where name='Afghanistan'
+select * from dbo.ap
+*/
+/*
+select name,area into ap from dbo.World
+select * from ap
+update dbo.ap set name=1,area=2 where name='Andorra'
+update dbo.ap set name=(select area from dbo.World where name='Angola') where name='Angola'
+select * from ap
+*/
+
+/*
+select name,area into ap from dbo.World
+select * from ap
+
+create table ap as select name,area from dbo.World //MySQL用法
+*/
+
+/*
+Create table If Not Exists World (name varchar(255), continent varchar(255), area int, population int, gdp int)
+Truncate table World
+insert into World (name, continent, area, population, gdp) values ('Afghanistan', 'Asia', '652230', '25500100', '20343000000')
+insert into World (name, continent, area, population, gdp) values ('Albania', 'Europe', '28748', '2831741', '12960000000')
+insert into World (name, continent, area, population, gdp) values ('Algeria', 'Africa', '2381741', '37100000', '188681000000')
+insert into World (name, continent, area, population, gdp) values ('Andorra', 'Europe', '468', '78115', '3712000000')
+insert into World (name, continent, area, population, gdp) values ('Angola', 'Africa', '1246700', '20609294', '100990000000')
+
+Create table If Not Exists Employee (Id int, Name varchar(255), Salary int, DepartmentId int)
+Create table If Not Exists Department (Id int not null, Name varchar(255))
+Truncate table Employee
+insert into Employee (Id, Name, Salary, DepartmentId) values ('1', 'Joe', '70000', '1')
+insert into Employee (Id, Name, Salary, DepartmentId) values ('2', 'Henry', '80000', '2')
+insert into Employee (Id, Name, Salary, DepartmentId) values ('3', 'Sam', '60000', '2')
+insert into Employee (Id, Name, Salary, DepartmentId) values ('4', 'Max', '90000', '1')
+Truncate table Department
+insert into Department (Id, Name) values ('1', 'IT')
+insert into Department (Id, Name) values ('2', 'Sales')
+
+create table if not exists salary(id int, name varchar(100), sex char(1), salary int)
+Truncate table salary
+insert into salary (id, name, sex, salary) values ('1', 'A', 'm', '2500')
+insert into salary (id, name, sex, salary) values ('2', 'B', 'f', '1500')
+insert into salary (id, name, sex, salary) values ('3', 'C', 'm', '5500')
+insert into salary (id, name, sex, salary) values ('4', 'D', 'f', '500')
+*/
+
+//將整欄資料合併的方法:將R_WAY_USER的USER_NAME抓出來，用"、"串成新的資料，存放到USERS欄位。
+/*STUFF格式
+STUFF(原字串,起始位置,刪除長度,插入字串)
+*/
+SELECT STUFF((SELECT '、' + USER_NAME FROM R_WAY_USER WHERE i_index = R_WAY_G.i_index FOR XML PATH('')), 1, 1, '') USERS
+
+//若想使用字串當作關聯KEY，可用以下此方式
+/*CROSS APPLY格式
+SELECT A.column1, ... ,B.column1, ...
+   FROM TableA AS A
+CROSS APPLY TableFunction (A.Id) AS TF
+*/
+CREATE FUNCTION GetDept(@CountryName varchar(25))
+    RETURNS TABLE
+    RETURN
+    (
+        SELECT Id, Name, CountryName
+          FROM Dept
+         WHERE CountryName = @CountryName
+    )
+
+SELECT E.Id, E.Name, E.CountryName, TD.Name, E.CountryName
+           FROM EMPLOYEE AS E
+    CROSS APPLY GetDept(E.CountryName) TD
+ 
